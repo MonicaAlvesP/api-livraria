@@ -1,26 +1,51 @@
-from flask import Flask  # Importa a classe Flask do módulo flask
-from dotenv import load_dotenv  # Importa a função load_dotenv do módulo dotenv
-import os  # Importa o módulo os para interagir com variáveis de ambiente
+from flask import Flask, request, jsonify
+from dotenv import load_dotenv
+import os
+import sqlite3
 
-load_dotenv()  # Carrega variáveis de ambiente do arquivo .env
+load_dotenv()
 
-app = Flask(__name__)  # Cria uma instância da aplicação Flask
-
-
-@app.route('/')  # Define a rota para a URL raiz
-def hello_world():
-    # Retorna uma mensagem para a URL raiz
-    return '<h1>Pagina home</h1>'
+app = Flask(__name__)
 
 
-@app.route('/blog')  # Define a rota para a URL /blog
-def blog():
-    # Retorna uma mensagem para a URL /blog
-    return '<h1>Pagina blog</h1>'
+def init_db():
+    with sqlite3.connect('database.db') as conn:
+        conn.execute(
+            """
+      CREATE TABLE IF NOT EXISTS LIVROS(
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      titulo TEXT NOT NULL,
+      categoria TEXT NOT NULL,
+      autor TEXT NOT NULL,
+      imagem_url TEXT NOT NULL,
+      condicao TEXT NOT NULL
+      )
+    """
+        )
 
 
-if __name__ == '__main__':  # Verifica se o script está sendo executado diretamente
-    # Obtém o valor da variável de ambiente DEBUG_MODE
+init_db()
+
+
+@app.route("/doar", methods=["POST"])
+def doar():
+    dados = request.get_json()
+
+    titulo = dados.get("titulo")
+    categoria = dados.get("categoria")
+    autor = dados.get("autor")
+    imagem_url = dados.get("imagem_url")
+    condicao = dados.get("condicao")
+
+    with sqlite3.connect('database.db') as conn:
+        conn.execute(f"""
+                   
+        INSERT INTO LIVROS(titulo, categoria, autor, imagem_url, condicao)
+        VALUES ("{titulo}", "{categoria}", "{autor}", "{imagem_url}", "{condicao}")
+                   """)
+        return jsonify({"message": "Livro cadastrado com sucesso"}), 201
+
+
+if __name__ == '__main__':
     debug_mode = os.getenv('DEBUG_MODE')
-    # Executa a aplicação Flask com o modo de depuração definido pela variável de ambiente
     app.run(debug=debug_mode)
