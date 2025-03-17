@@ -1,26 +1,70 @@
-from flask import Flask  # Importa a classe Flask do módulo flask
-from dotenv import load_dotenv  # Importa a função load_dotenv do módulo dotenv
-import os  # Importa o módulo os para interagir com variáveis de ambiente
+from flask import Flask, request, jsonify, render_template
+from dotenv import load_dotenv
+import os
+import sqlite3
 
-load_dotenv()  # Carrega variáveis de ambiente do arquivo .env
+load_dotenv()
 
-app = Flask(__name__)  # Cria uma instância da aplicação Flask
+app = Flask(__name__, template_folder='template')
 
+def init_db():
+  with sqlite3.connect('database.db') as conn:
+    conn.execute(
+      """
+    CREATE TABLE IF NOT EXISTS LIVROS(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    titulo TEXT NOT NULL,
+    categoria TEXT NOT NULL,
+    autor TEXT NOT NULL,
+    imagem_url TEXT NOT NULL,
+    condicao TEXT NOT NULL
+    )
+    """
+    )
 
-@app.route('/')  # Define a rota para a URL raiz
-def hello_world():
-    # Retorna uma mensagem para a URL raiz
-    return '<h1>Pagina home</h1>'
+init_db()
 
+@app.route("/")
+def index():
+  return render_template("index.html")
 
-@app.route('/blog')  # Define a rota para a URL /blog
-def blog():
-    # Retorna uma mensagem para a URL /blog
-    return '<h1>Pagina blog</h1>'
+@app.route("/doar", methods=["POST"])
+def doar():
+  dados = request.get_json()
 
+  titulo = dados.get("titulo")
+  categoria = dados.get("categoria")
+  autor = dados.get("autor")
+  image_url = dados.get("imagem_url")
+  condicao = dados.get("condicao")
 
-if __name__ == '__main__':  # Verifica se o script está sendo executado diretamente
-    # Obtém o valor da variável de ambiente DEBUG_MODE
-    debug_mode = os.getenv('DEBUG_MODE')
-    # Executa a aplicação Flask com o modo de depuração definido pela variável de ambiente
-    app.run(debug=debug_mode)
+  if not titulo or not categoria or not autor or not image_url or not condicao:
+    return jsonify({"error": "Todos os campos são obrigatórios"}), 400
+
+  with sqlite3.connect('database.db') as conn:
+    conn.execute("""
+    INSERT INTO LIVROS(titulo, categoria, autor, imagem_url, condicao)
+    VALUES (?, ?, ?, ?, ?)
+  """, (titulo, categoria, autor, image_url, condicao))
+    return jsonify({"message": "Livro cadastrado com sucesso",
+            "livro": {
+              "titulo": titulo,
+              "categoria": categoria,
+              "autor": autor,
+            }}), 201
+    conn.commit()
+
+    return jsonify({"message": "Livro cadastrado com sucesso"}, 201)
+
+@app.route("/livros-doados", methods=["GET"])
+def livros_doados():
+  with sqlite3.connect('database.db') as conn:
+    cursor = conn.execute("""
+    SELECT * FROM LIVROS
+  """)
+    livros = cursor.fetchall()
+    return jsonify(livros)
+
+if __name__ == '__main__':
+  debug_mode = os.getenv('DEBUG_MODE')
+  app.run(debug=debug_mode)
