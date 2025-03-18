@@ -4,11 +4,9 @@
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&display=swap" rel="stylesheet">
     <title>API com Flask</title>
   </head>
+
   <style>
     * {
       margin: 0;
@@ -17,110 +15,99 @@
     }
 
     body {
-      font-family: "IM Fell English", sans-serif;
-      background-image: url('https://blog-leiturinha-novo.s3.us-east-1.amazonaws.com/production/uploads/2022/07/iStock-1342821070-1.jpg');
+      font-family: 'Arial', sans-serif;
+      background-image: url('https://static.significados.com.br/foto/xilogravura-literatura-de-cordel.jpg?width=1024');
       background-size: cover;
       background-position: center;
-      display: flex;
-      justify-content: center;
-      align-items: center;
     }
 
     .container {
-      background-color: rgba(255, 255, 255, 0.8);
-      padding: 20px;
-      border-radius: 10px;
+      display: flex;
+      flex-direction: column;
+      background-color: rgba(230, 216, 236, 0.8);
+      height: 100vh;
+      padding: 20px 10px;
+      gap: 1rem;
     }
 
-    h1 {
-      font-size: 2rem;
-      margin-bottom: 20px;
-    }
+    .item {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      font-size: 0.8rem;
 
-    a {
-      color: #ff6347;
-      text-decoration: none;
-
-      &:hover {
-        color: #ff00ff;
+      a {
+        color: #8D65C5;
+        text-decoration: none;
+        font-weight: bold;
       }
-    }
-
-    .content {
-      margin-bottom: 6px;
-      text-align: left;
     }
   </style>
 
   <body>
-    <section class="container">
+    <main class="container">
       <h1>
         API - Livraria VainaWeb
       </h1>
-      <div class="content">
-        <pre>
-Se achegue, amigo, pode sentar,
-Vou lhe contar e fazer rimar.
+      <section class="content">
+        <p class="item">
+          <span>Se achegue, amigo, pode sentar,</span>
+          <span>Vou lhe contar e fazer rimar.</span>
+          <span>Foi na Vai na Web que fui aprender,</span>
+          <span>E entre uns bugs, quase enlouquecer!</span>
+        </p>
+      </section>
 
-Foi na Vai na Web que fui aprender,
-E entre uns bugs, quase enlouquecer!
-        </pre>
-      </div>
+      <section class="content">
+        <p class="item">
+          <span>Tinha HTML, CSS no meio,</span>
+          <span>JavaScript me deu um receio.</span>
+          <span>React gritou: “Me componha direito!”</span>
+          <span>E o Flask pediu: “Retorne em JSON, perfeito!”</span>
+        </p>
+      </section>
 
-      <div class="content">
-        <pre>
-Tinha HTML, CSS no meio,
-JavaScript me deu um receio.
+      <section class="content">
+        <p class="item">
+          <span>Nos erros, eu ri, e quase chorei,</span>
+          <span>Mas com meus mestres, jamais desisti!</span>
+          <span><a href="https://www.linkedin.com/in/fernandacorr%C3%AAa/">Fernanda</a> e <a
+              href="https://www.linkedin.com/in/jo%C3%A3o-pedro-belo/">João</a>, uma dupla arretada,</span>
+          <span>Explicam com graça, fazem piada.</span>
+        </p>
+      </section>
 
-React gritou: “Me componha direito!”
-E o Flask pediu: “Retorne em JSON, perfeito!”
-        </pre>
-      </div>
+      <section class="content">
+        <p class="item">
+          <span>Se erro no código? “É feature, menina!”</span>
+          <span>Se esqueço um ponto? “Isso é rotina!”</span>
+          <span>Se o deploy falhou? “Reza que dá!”</span>
+          <span>E entre risadas, aprendi a programar!</span>
+        </p>
+      </section>
 
-      <div class="content">
-        <pre>
-Nos erros, eu ri, e quase chorei,
-Mas com meus mestres, jamais desisti!
+      <section class="content">
+        <p class="item">
+          <span>Agora eu sei, sou fullstack de fé,</span>
+          <span>Boto o front no ar, o back de pé.</span>
+          <span>Agradeço a turma que riu e suou,</span>
+          <span>E nessa jornada, só quem viveu, chorou!</span>
+        </p>
+      </section>
 
-<a href="https://www.linkedin.com/in/fernandacorr%C3%AAa/">Fernanda</a> e <a href="https://www.linkedin.com/in/jo%C3%A3o-pedro-belo/">João</a>, uma dupla arretada,
-Explicam com graça, fazem piada.
-        </pre>
-      </div>
-
-      <div class="content">
-        <pre>
-Se erro no código? “É feature, menina!”
-Se esqueço um ponto? “Isso é rotina!”
-
-Se o deploy falhou? “Reza que dá!”
-E entre risadas, aprendi a programar!
-        </pre>
-      </div>
-
-      <div class="content">
-        <pre>
-Agora eu sei, sou fullstack de fé,
-Boto o front no ar, o back de pé.
-
-Agradeço a turma que riu e suou,
-E nessa jornada, só quem viveu, chorou!
-        </pre>
-      </div>
-
-      <div class="content">
-        <pre>
-Aqui tem código e muita zoeira,
-Se precisar, chame a <a href="https://www.linkedin.com/in/dev-alves/">Dev Mônica Pereira</a>!
-
-Faço o front, levanto o back,
-E boto pra rodar, sem perder o knack!
-        </pre>
-      </div>
+      <section class="content">
+        <p class="item">
+          <span>Aqui tem código e muita zoeira,</span>
+          <span>Se precisar, chame a <a href="https://www.linkedin.com/in/dev-alves/">Dev Mônica Pereira</a>!</span>
+          <span>Faço o front, levanto o back,</span>
+          <span>E boto pra rodar, sem perder o knack!</span>
+        </p>
+      </section>
 
       <p>
         <strong>💜 VainaWeber sempre serei! 💜</strong>
       </p>
-    </section>
+    </main>
   </body>
 
 </html>
