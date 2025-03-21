@@ -66,12 +66,22 @@ def doar():
 @app.route("/livros-doados", methods=["GET"])
 def livros_doados():
     with sqlite3.connect('database.db') as conn:
-        cursor = conn.cursor()
-        cursor.execute("""
-    SELECT * FROM LIVROS
-  """)
-        livros = cursor.fetchall()
-        return jsonify(livros)
+        livros = conn.execute("SELECT * FROM LIVROS").fetchall()
+
+        livros_formatados = []
+
+        for livro in livros:
+            dicionario_livros = {
+                "id": livro[0],
+                "titulo": livro[1],
+                "ano_lancamento": livro[2],
+                "categoria": livro[3],
+                "autor": livro[4],
+                "image_url": livro[5],
+                "sinopse": livro[6]
+            }
+            livros_formatados.append(dicionario_livros)
+    return jsonify(livros_formatados), 200
 
 
 if __name__ == '__main__':
