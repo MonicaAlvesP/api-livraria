@@ -14,10 +14,11 @@ O projeto utiliza SQLite para armazenar informações sobre os livros. Cada livr
 
 - ID (chave primária)
 - Título
+- Ano de Lançamento
 - Categoria
 - Autor
 - URL da imagem do livro
-- Condição do livro
+- Sinopse
 
 ## 🛠️ Tecnologias Utilizadas
 
@@ -80,7 +81,7 @@ Cadastra um novo livro para doação
   "categoria": "Categoria do Livro",
   "autor": "Nome do Autor",
   "imagem_url": "URL da imagem do livro",
-  "condicao": "Estado do livro"
+  "sinopse": "Pequeno resumo do livro"
 }
 ```
 

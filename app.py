@@ -15,10 +15,11 @@ def init_db():
     CREATE TABLE IF NOT EXISTS LIVROS(
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     titulo TEXT NOT NULL,
+    ano_lancamento INTEGER NOT NULL,
     categoria TEXT NOT NULL,
     autor TEXT NOT NULL,
-    imagem_url TEXT NOT NULL,
-    condicao TEXT NOT NULL
+    image_url TEXT NOT NULL,
+    sinopse TEXT NOT NULL
     )
     """
         )
@@ -37,19 +38,20 @@ def doar():
     dados = request.get_json()
 
     titulo = dados.get("titulo")
+    ano_lancamento = dados.get("ano_lancamento")
     categoria = dados.get("categoria")
     autor = dados.get("autor")
     image_url = dados.get("imagem_url")
-    condicao = dados.get("condicao")
+    sinopse = dados.get("sinopse")
 
-    if not titulo or not categoria or not autor or not image_url or not condicao:
+    if not titulo or not categoria or not autor or not image_url or not sinopse:
         return jsonify({"error": "Todos os campos são obrigatórios"}), 400
 
     with sqlite3.connect('database.db') as conn:
-        conn.execute("""
-    INSERT INTO LIVROS(titulo, categoria, autor, imagem_url, condicao)
-    VALUES (?, ?, ?, ?, ?)
-  """, (titulo, categoria, autor, image_url, condicao))
+        conn.execute(f"""
+    INSERT INTO LIVROS(titulo, ano_lancamento, categoria, autor, image_url, sinopse)
+    VALUES (?, ?, ?, ?, ?, ?)
+  """, (titulo, ano_lancamento, categoria, autor, image_url, sinopse))
         return jsonify({"message": "Livro cadastrado com sucesso",
                         "livro": {
                             "titulo": titulo,
@@ -64,7 +66,8 @@ def doar():
 @app.route("/livros-doados", methods=["GET"])
 def livros_doados():
     with sqlite3.connect('database.db') as conn:
-        conn.execute("""
+        cursor = conn.cursor()
+        cursor.execute("""
     SELECT * FROM LIVROS
   """)
         livros = cursor.fetchall()
