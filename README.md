@@ -30,6 +30,9 @@ O projeto utiliza SQLite para armazenar informações sobre os livros. Cada livr
 ## 🚀 Como Executar
 
 1. Clone o repositório
+```
+git clone https://github.com/MonicaAlvesP/api-livraria.git
+```
 2. Crie um ambiente virtual:
 
 ```
@@ -78,6 +81,7 @@ Cadastra um novo livro para doação
 ```json
 {
   "titulo": "Nome do Livro",
+  "ano_lancamento": "Ano em que o livro foi lançado",
   "categoria": "Categoria do Livro",
   "autor": "Nome do Autor",
   "imagem_url": "URL da imagem do livro",
