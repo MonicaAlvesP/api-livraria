@@ -1,5 +1,6 @@
 from flask import Flask, request, jsonify, render_template
 from dotenv import load_dotenv
+from flask_cors import CORS
 import os
 import sqlite3
 
@@ -7,6 +8,7 @@ load_dotenv()
 
 app = Flask(__name__, template_folder='template')
 
+CORS(app)
 
 def init_db():
     with sqlite3.connect('database.db') as conn:
