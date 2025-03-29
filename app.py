@@ -84,8 +84,6 @@ def livros_doados():
                 "sinopse": livro[6]
             }
             livros_formatados.append(dicionario_livros)
-
-            conn.close()
     return jsonify(livros_formatados), 200
 
 
@@ -107,8 +105,7 @@ def livro_doados(id):
             "image_url": livro[5],
             "sinopse": livro[6]
         }
-
-        conn.close()
+        
     return jsonify(dicionario_livro), 200
 
 
