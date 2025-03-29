@@ -61,8 +61,8 @@ def doar():
                             "categoria": categoria,
                             "autor": autor,
                         }}), 201
-        conn.commit()
 
+        conn.commit()
         return jsonify({"message": "Livro cadastrado com sucesso"}, 201)
 
 
@@ -84,6 +84,8 @@ def livros_doados():
                 "sinopse": livro[6]
             }
             livros_formatados.append(dicionario_livros)
+
+            conn.close()
     return jsonify(livros_formatados), 200
 
 
@@ -106,6 +108,7 @@ def livro_doados(id):
             "sinopse": livro[6]
         }
 
+        conn.close()
     return jsonify(dicionario_livro), 200
 
 
