@@ -10,6 +10,7 @@ app = Flask(__name__, template_folder='template')
 
 CORS(app)
 
+
 def init_db():
     with sqlite3.connect('database.db') as conn:
         conn.execute(
@@ -84,6 +85,28 @@ def livros_doados():
             }
             livros_formatados.append(dicionario_livros)
     return jsonify(livros_formatados), 200
+
+
+@app.route("/livros-doados/<int:id>", methods=["GET"])
+def livro_doados(id):
+    with sqlite3.connect('database.db') as conn:
+        livro = conn.execute(
+            "SELECT * FROM LIVROS WHERE id = ?", (id,)).fetchone()
+
+        if livro is None:
+            return jsonify({"error": "Livro não encontrado"}), 404
+
+        dicionario_livro = {
+            "id": livro[0],
+            "titulo": livro[1],
+            "ano_lancamento": livro[2],
+            "categoria": livro[3],
+            "autor": livro[4],
+            "image_url": livro[5],
+            "sinopse": livro[6]
+        }
+
+    return jsonify(dicionario_livro), 200
 
 
 if __name__ == '__main__':
