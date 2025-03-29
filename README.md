@@ -1,12 +1,13 @@
-# 📚 API livraria
+# 📚 API Livraria
 
-Desenvolvido como parte do curso de Fullstack da Vai na Web, este projeto demonstra a implementação de uma API REST usando Flask com integração a banco de dados SQLite.
+Desenvolvido como parte do curso de Fullstack da Vai na Web, este projeto demonstra a implementação de uma API REST usando Flask com integração a banco de dados SQLite. Com a ajuda do meu professor [João Pedro Belo](https://www.linkedin.com/in/jo%C3%A3o-pedro-belo/), consegui desenvolver e aprimorar as funcionalidades desta aplicação.
 
 ## 🌟 Funcionalidades
 
 - **Página Inicial**: Apresenta uma interface de boas-vindas com um poema sobre a jornada de aprendizado em programação
 - **Cadastro de Livros**: Endpoint para cadastrar novos livros para doação
 - **Listagem de Livros**: Endpoint para visualizar todos os livros cadastrados no sistema
+- **Detalhes do Livro**: Endpoint para obter informações detalhadas de um livro específico, incluindo título, autor, categoria, ano de lançamento, sinopse e URL da imagem.
 
 ## 🗄️ Estrutura do Banco de Dados
 
@@ -74,6 +75,21 @@ python app.py
 
 Retorna a página inicial em HTML
 
+### GET /livros-doados
+Retorna a lista de todos os livros cadastrados no sistema.
+
+**Respostas:**
+- 200 OK: Retorna a lista de livros
+- 500 Internal Server Error: Quando ocorre algum problema no servidor
+
+### GET /livros-doados/<id>
+
+Retorna os detalhes de um livro específico pelo seu ID
+
+**Respostas:**
+- 200 OK: Retorna os dados do livro solicitado
+- 404 Not Found: Quando o livro com o ID especificado não existe
+
 ### POST /doar
 
 Cadastra um novo livro para doação
@@ -84,14 +100,13 @@ Cadastra um novo livro para doação
   "ano_lancamento": "Ano em que o livro foi lançado",
   "categoria": "Categoria do Livro",
   "autor": "Nome do Autor",
-  "imagem_url": "URL da imagem do livro",
+  "image_url": "URL da imagem do livro",
   "sinopse": "Pequeno resumo do livro"
 }
 ```
-
-### GET /livros-doados
-
-Retorna a lista de todos os livros cadastrados
+**Respostas:**
+- 201 Created: Livro cadastrado com sucesso
+- 400 Bad Request: Erro quando campos obrigatórios não são fornecidos
 
 <div align="left">
   Feito com 💜 por <a href="https://github.com/MonicaAlvesP?tab=repositories">MA</a>.
