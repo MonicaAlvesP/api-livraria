@@ -44,7 +44,7 @@ python -m venv venv
 
 - No Windows:
   ```
-  venv\Scripts\activate
+  source venv\Scripts\activate
   ```
 - No macOS/Linux:
   ```
