@@ -1,15 +1,15 @@
-# 📚 API Livraria
+# API Livraria
 
 Desenvolvido como parte do curso de Fullstack da Vai na Web, este projeto demonstra a implementação de uma API REST usando Flask com integração a banco de dados SQLite. Com a ajuda do meu professor [João Pedro Belo](https://www.linkedin.com/in/jo%C3%A3o-pedro-belo/), consegui desenvolver e aprimorar as funcionalidades desta aplicação.
 
-## 🌟 Funcionalidades
+## Funcionalidades
 
 - **Página Inicial**: Apresenta uma interface de boas-vindas com um poema sobre a jornada de aprendizado em programação
 - **Cadastro de Livros**: Endpoint para cadastrar novos livros para doação
 - **Listagem de Livros**: Endpoint para visualizar todos os livros cadastrados no sistema
 - **Detalhes do Livro**: Endpoint para obter informações detalhadas de um livro específico, incluindo título, autor, categoria, ano de lançamento, sinopse e URL da imagem.
 
-## 🗄️ Estrutura do Banco de Dados
+## Estrutura do Banco de Dados
 
 O projeto utiliza SQLite para armazenar informações sobre os livros. Cada livro possui:
 
@@ -21,14 +21,14 @@ O projeto utiliza SQLite para armazenar informações sobre os livros. Cada livr
 - URL da imagem do livro
 - Sinopse
 
-## 🛠️ Tecnologias Utilizadas
+## Tecnologias Utilizadas
 
 - **Python**: Linguagem de programação principal
 - **Flask**: Framework web para desenvolvimento da API
 - **SQLite**: Banco de dados local para armazenamento
 - **python-dotenv**: Para gerenciamento de variáveis de ambiente
 
-## 🚀 Como Executar
+## Como Executar
 
 1. Clone o repositório
 ```
@@ -69,7 +69,7 @@ DEBUG_MODE=True
 python app.py
 ```
 
-## 🔗 Endpoints da API
+## Endpoints da API
 
 ### GET /
 
