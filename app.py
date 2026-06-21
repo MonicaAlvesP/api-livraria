@@ -94,6 +94,27 @@ def livro_doados(id):
     return jsonify(dict(livro)), 200
 
 
+@app.route("/pesquisa", methods=["GET"])
+def pesquisa():
+    termo = request.args.get("q", "")
+    if not termo:
+        return jsonify([]), 200
+
+    termo_like = f"%{termo}%"
+    with get_conn() as conn:
+        with conn.cursor(cursor_factory=psycopg2.extras.RealDictCursor) as cur:
+            cur.execute(
+                """
+                SELECT * FROM LIVROS 
+                WHERE titulo ILIKE %s OR autor ILIKE %s OR categoria ILIKE %s
+                """,
+                (termo_like, termo_like, termo_like)
+            )
+            livros = cur.fetchall()
+
+    return jsonify([dict(livro) for livro in livros]), 200
+
+
 if __name__ == '__main__':
     debug_mode = os.getenv('DEBUG_MODE')
     app.run(debug=debug_mode)
